@@ -1,0 +1,133 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+// Sort posts by publication date, most recent first
+const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<div class="posts-page">
+    <header class="page-header">
+        <h1>My very cool blog</h1>
+        <p class="tagline">Make this unique!</p>
+    </header>
+
+    {posts.length === 0 && <p class="empty">No posts yet.</p>}
+
+    <div class="posts">
+        {posts.map((post) => (
+            <article class="post-card">
+                <a href={`/posts/${post.id}`} class="title-link">
+                    {post.data.title}
+                </a>
+                <p class="description">{post.data.description}</p>
+                <p class="meta">
+                    Published on <FormattedDate date={post.data.pubDate} />
+                    {post.data.updatedDate && (
+                        <>
+                            {' '}
+                            | Updated on{' '}
+                            <FormattedDate date={post.data.updatedDate} />
+                        </>
+                    )}
+                </p>
+            </article>
+        ))}
+    </div>
+</div>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f0ff 0%;
+        color: #2a2a2a;
+    }
+
+    .posts-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header {
+        text-align: center;
+        padding: 32px 24px 40px;
+    }
+
+    h1 {
+        margin: 0 0 10px;
+        font-size: 2.4rem;
+        color: #322a53;
+        letter-spacing: -0.02em;
+    }
+
+    .tagline {
+        margin: 0;
+        font-size: 1.1rem;
+        color: #4a4761;
+    }
+
+    .empty {
+        margin: 0;
+        color: #6a6a7a;
+        font-weight: 600;
+    }
+
+    .posts {
+        width: 100%;
+        max-width: 920px;
+        display: grid;
+        gap: 18px;
+    }
+
+    .post-card {
+        background: #fff;
+        padding: 20px 18px 22px;
+        border: 1px solid #d7d3e5;
+        box-shadow: 0 12px 32px rgba(31, 20, 71, 0.08);
+        color: inherit;
+        transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .title-link {
+        display: inline-block;
+        margin-bottom: 10px;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #322a53;
+        text-decoration: none;
+    }
+
+    .title-link:hover {
+        color: #5145b7;
+        text-decoration: underline;
+    }
+
+    .description {
+        margin: 0 0 12px;
+        color: #2f2f39;
+        line-height: 1.6;
+    }
+
+    .meta {
+        margin: 0;
+        color: #6a6a7a;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
+        .posts-page {
+            padding: 32px 14px 48px;
+        }
+
+        .post-card {
+            padding: 18px 16px 20px;
+        }
+    }
+</style>
