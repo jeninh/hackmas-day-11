@@ -1,15 +1,16 @@
 # Let's make a blog with Astro and Markdown!
 
-This workshop will hopefully tech you how to make a simple blog using [Astro](https://astro.build) in about 2 to 3 hours :3
+This workshop will _hopefully_ tech you how to make a simple blog using [Astro](https://astro.build) in about 2 to 3 hours :3
 
 The example project for this workshop can be found here: [https://haxmas-day-12.shymike.dev](https://haxmas-day-12.shymike.dev)
 If you have any questions, feel free to ask DM me ([@miggy](https://hackclub.enterprise.slack.com/team/U07VC9705D4)) on Slack!
 
 Have fun!
 
-| Prizes |
-|--------|
-|test    |
+| Prizes         |
+|----------------|
+|10$ domain grant|
+|1 snowflake     |
 
 ![workshop banner](./assets/workshop-banner.png)
 
