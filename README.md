@@ -162,11 +162,14 @@ import '../styles/global.css';
             <div class="page-header">
                 <h1>Astro</h1>
                 <p class="tagline">Such a jolly blog!</p>
+                <a href="/posts" class="posts-link">See Posts</a>
             </div>
         </main>
     </body>
 </html>
 ```
+
+![homepage](./assets/homepage.png)
 
 ## 7) Displaying blog posts
 
