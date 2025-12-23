@@ -39,9 +39,9 @@ Give your project a name (e.g., `haxmas-day-11`) and navigate into the project d
 cd haxmas-day-11
 ```
 
-Woah! That was easy!
+Woah! That was easy! :D
 
-Now to start the development server, run:
+Now start the development server with:
 
 ```bash
 bun dev
@@ -81,6 +81,8 @@ The final structure of the project should look like this:
 │   └── post.css
 └── content.config.ts
 ```
+
+If you want a starting point for styling, you can copy the CSS files in [this folder](https://github.com/ImShyMike/haxmas-day-11/tree/main/haxmas-day-11/src/styles). (I'll be using them throughout the workshop)
 
 Don't worry about the contents of each file yet, that will be done later :P
 
@@ -134,7 +136,34 @@ You can make stuff __bold__, *italic*, or even ~~strikethrough~~ like in regular
 
 ## 6) Making the homepage
 
-The homepage is defined by the `src/pages/index.astro` file. 
+The homepage is defined by the `src/pages/index.astro` file, you can see it at `http://localhost:4321`.
+
+If you want a simple template, you can use the following snippet:
+
+```astro
+---
+// Import CSS styles
+import '../styles/global.css';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Astro</title>
+    </head>
+    <body>
+        <main class="page-shell home">
+            <div class="page-header">
+                <h1>Astro</h1>
+                <p class="tagline">Such a jolly blog!</p>
+            </div>
+        </main>
+    </body>
+</html>
+```
 
 ## 7) Displaying blog posts
 
@@ -303,11 +332,9 @@ You can now head over to `http://localhost:4321/posts` to see all your blog post
 
 ## 10) Styling
 
-You may have noticed that everything looks horible and that there's no CSS. Well, now it's the time to change that :3
+**Before submitting, make sure to customize the blog's styling to make it your own!**
 
-If you want a starting point for styling, you can use the CSS files in [this folder](https://github.com/ImShyMike/haxmas-day-11/tree/main/haxmas-day-11/src/styles).
-
-**Before submitting, make sure to customize the home page and the blog's styles to make it your own!**
+I'll also ask that you make your own blog post, it doesn't need to be anything complex or huge, you can just make a tiny silly post :P
 
 Need help with Astro? Check out the [Astro documentation](https://docs.astro.build)!
 
