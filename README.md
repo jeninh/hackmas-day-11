@@ -27,6 +27,8 @@ Before starting this workshop, make sure you have the following installed on you
 - A [Cloudflare](https://cloudflare.com) account
 - An IDE (I will be using [VSCode](https://code.visualstudio.com))
 
+#### Cloudflare will be used in this guide to host the blog but you can use any other hosting provider that supports Astro! (Vercel, Netlify, etc)
+
 ## 1) Create a new Astro project
 
 To start, set up a new Astro project by running the following command in your terminal:
@@ -349,6 +351,8 @@ Need help with Astro? Check out the [Astro documentation](https://docs.astro.bui
 Want to implement more features into your blog? Check out [Astro's official blog guide](https://docs.astro.build/en/tutorial/0-introduction)!
 
 ## 11) Deploying to Cloudflare Pages
+
+#### You can use any hosting provider that supports Astro if you know how to use it!
 
 To deploy your very amazing blog to Cloudflare Pages:
 
