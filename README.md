@@ -82,15 +82,13 @@ The final structure of the project should look like this:
 └── content.config.ts
 ```
 
-If you want a starting point for styling, you can copy the CSS files in [this folder](https://github.com/ImShyMike/haxmas-day-11/tree/main/haxmas-day-11/src/styles). (I'll be using them throughout the workshop)
+If you want a starting point for styling, you can copy the CSS files in [this folder](https://github.com/ImShyMike/haxmas-day-11/tree/main/haxmas-day-11/src/styles). **(I'll be using this styling throughout the workshop)**
 
 Don't worry about the contents of each file yet, that will be done later :P
 
 ## 4) Configuring content
 
-Astro will need to read and parse our markdown files, for that we will need to configure stuff in `content.config.ts`.
-
-We will be using the `./src/content/posts` directory to store our blog posts.
+Astro will need to read and parse our markdown files, for that we will need to configure stuff in `content.config.ts` so the posts in `src/content/posts` can be read properly.
 
 ```ts
 import { defineCollection, z } from 'astro:content';
@@ -113,7 +111,7 @@ const blog = defineCollection({
 export const collections = { blog };
 ```
 
-Astro can now read and parse our markdown files! Now let's create some blog posts :3
+Astro can now read and parse our markdown files! Let's create some blog posts! :3
 
 ## 5) Creating blog posts
 
@@ -126,12 +124,17 @@ I will be using the following markdown file as an example: `hello-world.md`
 title: Hello, World!
 description: This is a very cool workshop
 pubDate: Aug 08 2025
-heroImage: ../../assets/blog/crazy.jpg
 ---
+
+# This is a title
 
 This is a very cool blog post that was made using markdown :3
 
+## And this is a subtitle
+
 You can make stuff __bold__, *italic*, or even ~~strikethrough~~ like in regular markdown!
+
+![image from lorem picsum](https://picsum.photos/800/400)
 ```
 
 ## 6) Making the homepage
@@ -167,11 +170,11 @@ import '../styles/global.css';
 
 ## 7) Displaying blog posts
 
-To display a blog post, we will need to create a layout and a page to render the blog posts.
+To display a blog post, we will first need to create a layout and a page to render the blog posts :p
 
 That's exactly what `BlogLayout.astro` and `posts/[...slug].astro` are for!
 
-The layout file will be used to style and structure the blog post page, while the slug file will be used to match the route to the correct blog post.
+The layout file will be used to structure the blog post page, while the slug file will be used to match the url to the correct blog post.
 
 - `src/layouts/BlogLayout.astro`:
 
@@ -244,9 +247,9 @@ const { Content } = await render(post);
 
 Oh no! We're missing a `FormattedDate` component!
 
-_Wait, what's even a component? It's reusable piece of code that can be used in many different places on your website._
+_Wait, what's a component?_ It's reusable piece of code that can be used in many different places on your website.
 
-Let's add it in `src/components/FormattedDate.astro`:
+Let's add the missing component by in `src/components/FormattedDate.astro`:
 
 ```astro
 ---
@@ -274,17 +277,17 @@ You can now head over to `http://localhost:4321/posts/hello-world` (or whatever 
 
 _(if you see an error about missing content or incorrect types, stop the dev server and start it again with `bun dev`)_
 
-![blog post](./assets/post.png)
+![blog post](./assets/workshop-banner.png)
 
-**The styling is currently very basic and you should tweak it and make it your own before submitting!**
+### The styling is currently very basic and you need to tweak it and make it your own before submitting!
 
-You can see that it's missing a page to list all blog posts. Let's add that next!
+You may have noticed that we're missing a page to list all blog posts, let's add that next!
 
 ## 9) Listing blog posts
 
 The page that will be used to list all blog posts will be `/posts` and the file for that is `src/pages/posts/index.astro`.
 
-It will fetch all blog posts from the content collection and display them in a list.
+It will fetch all blog posts from the content collection (folder of markdown files) and display them in a list.
 
 ```astro
 ---
@@ -332,9 +335,9 @@ You can now head over to `http://localhost:4321/posts` to see all your blog post
 
 ## 10) Styling
 
-**Before submitting, make sure to customize the blog's styling to make it your own!**
+### Before submitting, make sure to customize the blog's styling to make it your own!
 
-I'll also ask that you make your own blog post, it doesn't need to be anything complex or huge, you can just make a tiny silly post :P
+### I'll also ask that you make your own blog post, it doesn't need to be anything complex or huge, you can make a tiny and silly post :P
 
 Need help with Astro? Check out the [Astro documentation](https://docs.astro.build)!
 
@@ -368,5 +371,7 @@ You're done! After a few seconds, your blog should be live on Cloudflare Pages!
 ![cloudflare pages deployed](./assets/success.png)
 
 ## 12) Submitting
+
+### Make sure you have customized the styling of your blog and made at least one blog post before submitting!
 
 ### [https://forms.hackclub.com/haxmas-day-11](https://forms.hackclub.com/haxmas-day-11)
