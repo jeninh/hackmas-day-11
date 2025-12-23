@@ -2,7 +2,7 @@
 
 This workshop will _hopefully_ tech you how to make a simple blog using [Astro](https://astro.build) in about 2 to 3 hours :3
 
-The example project for this workshop can be found here: [https://haxmas-day-12.shymike.dev](https://haxmas-day-12.shymike.dev)
+The example project for this workshop can be found here: [https://haxmas-day-11.shymike.dev](https://haxmas-day-11.shymike.dev)
 If you have any questions, feel free to ask DM me ([@miggy](https://hackclub.enterprise.slack.com/team/U07VC9705D4)) on Slack!
 
 Have fun!
@@ -33,10 +33,10 @@ To start, set up a new Astro project by running the following command in your te
 bun create astro@latest -- --template minimal
 ```
 
-Give your project a name (e.g., `haxmas-day-12`) and navigate into the project directory:
+Give your project a name (e.g., `haxmas-day-11`) and navigate into the project directory:
 
 ```bash
-cd haxmas-day-12
+cd haxmas-day-11
 ```
 
 Woah! That was easy!
@@ -59,11 +59,9 @@ No extra dependencies are required but if you are familiar with [tailwindcss](ht
 bun astro add tailwind
 ```
 
-## 3) Making a blog structure
+## 3) The structure
 
-To create a blog structure, we will need to set up a few directories and files.
-
-Your `src` directory should look like this:
+The final structure of the project should look like this:
 
 ```src
 ├── assets
@@ -78,14 +76,17 @@ Your `src` directory should look like this:
 │   │   ├── [...slug].astro
 │   │   └── index.astro
 │   └── index.astro
+├── styles
+│   ├── global.css
+│   └── post.css
 └── content.config.ts
 ```
 
-Don't worry about the contents of these files yet, we will get to that later.
+Don't worry about the contents of each file yet, that will be done later :P
 
 ## 4) Configuring content
 
-Astro will need to read and parse our markdown files, for that we will need to configure `content.config.ts`.
+Astro will need to read and parse our markdown files, for that we will need to configure stuff in `content.config.ts`.
 
 We will be using the `./src/content/posts` directory to store our blog posts.
 
@@ -102,7 +103,6 @@ const blog = defineCollection({
             title: z.string(),
             description: z.string(),
             pubDate: z.coerce.date(),
-            updatedDate: z.coerce.date().optional(),
             heroImage: image().optional(),
         }),
 });
@@ -132,7 +132,11 @@ This is a very cool blog post that was made using markdown :3
 You can make stuff __bold__, *italic*, or even ~~strikethrough~~ like in regular markdown!
 ```
 
-## 6) Displaying blog posts
+## 6) Making the homepage
+
+The homepage is defined by the `src/pages/index.astro` file. 
+
+## 7) Displaying blog posts
 
 To display a blog post, we will need to create a layout and a page to render the blog posts.
 
@@ -150,11 +154,15 @@ import type { CollectionEntry } from 'astro:content';
 // Import the FormattedDate component
 import FormattedDate from '../components/FormattedDate.astro';
 
+// Import CSS styles
+import '../styles/global.css';
+import '../styles/post.css';
+
 // Get the blog post data from props
 type Props = CollectionEntry<'blog'>['data'];
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, heroImage } = Astro.props;
 ---
-<div class="post-page">
+<div class="post-page page-shell">
     <article class="post">
         <!-- Header with prost data -->
         <header>
@@ -166,83 +174,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
             <p class="date">
                 <FormattedDate date={pubDate} />
             </p>
-            {updatedDate && (
-                <p class="updated">
-                    Last updated on <FormattedDate date={updatedDate} />
-                </p>
-            )}
         </header>
+
         <!-- The post's content will be rendered in the slot tag -->
         <div class="body">
             <slot />
         </div>
     </article>
 </div>
-
-<!-- Example CSS styling -->
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f4f0ff 0%;
-        color: #2a2a2a;
-    }
-
-    header {
-        padding-bottom: 16px;
-        border-bottom: 3px solid #6a6a7a;
-        text-align: center;
-    }
-
-    .post-page {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        padding: 56px 16px 72px;
-    }
-
-    .post {
-        max-width: 920px;
-        width: 100%;
-        padding: 32px 24px 40px;
-        color: inherit;
-    }
-
-    h1 {
-        margin: 0 0 12px;
-        font-size: 2.4rem;
-        color: #322a53;
-        letter-spacing: -0.02em;
-    }
-
-    .description {
-        margin: 0 0 20px;
-        font-size: 1.1rem;
-        color: #4a4761;
-    }
-
-    .hero {
-        width: 100%;
-        max-height: 460px;
-        object-fit: cover;
-        margin: 20px 0 10px;
-        border-radius: 14px;
-    }
-
-    .date,
-    .updated {
-        margin: 6px 0;
-        color: #6a6a7a;
-        font-weight: 600;
-        letter-spacing: 0.01em;
-    }
-
-    .body {
-        line-height: 1.7;
-        color: #2f2f39;
-        padding: 12px 32px;
-    }
-</style>
 ```
 
 - `src/pages/posts/[...slug].astro`:
@@ -300,7 +239,7 @@ const { date } = Astro.props;
 </time>
 ```
 
-## 7) It exists?
+## 8) It exists?
 
 You can now head over to `http://localhost:4321/posts/hello-world` (or whatever you named your markdown file) to see your blog post live!
 
@@ -312,7 +251,7 @@ _(if you see an error about missing content or incorrect types, stop the dev ser
 
 You can see that it's missing a page to list all blog posts. Let's add that next!
 
-## 8) Listing blog posts
+## 9) Listing blog posts
 
 The page that will be used to list all blog posts will be `/posts` and the file for that is `src/pages/posts/index.astro`.
 
@@ -323,20 +262,25 @@ It will fetch all blog posts from the content collection and display them in a l
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 
+// Import CSS styles
+import '../../styles/global.css';
+
 // Sort posts by publication date, most recent first
 const posts = (await getCollection('blog')).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
-<div class="posts-page">
+<div class="posts-page page-shell">
+    <!-- Text above list of posts -->
     <header class="page-header">
         <h1>My very cool blog</h1>
         <p class="tagline">Make this unique!</p>
     </header>
 
-    {posts.length === 0 && <p class="empty">No posts yet.</p>}
+    {posts.length === 0 && <p class="empty">No posts yet :(</p>}
 
+    <!-- Container with the list of blog posts -->
     <div class="posts">
         {posts.map((post) => (
             <article class="post-card">
@@ -346,121 +290,22 @@ const posts = (await getCollection('blog')).sort(
                 <p class="description">{post.data.description}</p>
                 <p class="meta">
                     Published on <FormattedDate date={post.data.pubDate} />
-                    {post.data.updatedDate && (
-                        <>
-                            {' '}
-                            | Updated on{' '}
-                            <FormattedDate date={post.data.updatedDate} />
-                        </>
-                    )}
                 </p>
             </article>
         ))}
     </div>
 </div>
-
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f4f0ff 0%;
-        color: #2a2a2a;
-    }
-
-    .posts-page {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    header {
-        text-align: center;
-        padding: 32px 24px 40px;
-    }
-
-    h1 {
-        margin: 0 0 10px;
-        font-size: 2.4rem;
-        color: #322a53;
-        letter-spacing: -0.02em;
-    }
-
-    .tagline {
-        margin: 0;
-        font-size: 1.1rem;
-        color: #4a4761;
-    }
-
-    .empty {
-        margin: 0;
-        color: #6a6a7a;
-        font-weight: 600;
-    }
-
-    .posts {
-        width: 100%;
-        max-width: 920px;
-        display: grid;
-        gap: 18px;
-    }
-
-    .post-card {
-        background: #fff;
-        padding: 20px 18px 22px;
-        border: 1px solid #d7d3e5;
-        box-shadow: 0 12px 32px rgba(31, 20, 71, 0.08);
-        color: inherit;
-        transition: transform 180ms ease, box-shadow 180ms ease;
-    }
-
-    .title-link {
-        display: inline-block;
-        margin-bottom: 10px;
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #322a53;
-        text-decoration: none;
-    }
-
-    .title-link:hover {
-        color: #5145b7;
-        text-decoration: underline;
-    }
-
-    .description {
-        margin: 0 0 12px;
-        color: #2f2f39;
-        line-height: 1.6;
-    }
-
-    .meta {
-        margin: 0;
-        color: #6a6a7a;
-        font-weight: 600;
-        letter-spacing: 0.01em;
-        font-size: 0.95rem;
-    }
-
-    @media (max-width: 600px) {
-        .posts-page {
-            padding: 32px 14px 48px;
-        }
-
-        .post-card {
-            padding: 18px 16px 20px;
-        }
-    }
-</style>
 ```
 
 You can now head over to `http://localhost:4321/posts` to see all your blog posts!
 
 ![blog posts list](./assets/posts.png)
 
-## 9) Customizing
+## 10) Styling
 
-You may have seen that the home page (`http://localhost:4321`) is still just the default Astro page and that the theme is very basic.
+You may have noticed that everything looks horible and that there's no CSS. Well, now it's the time to change that :3
+
+If you want a starting point for styling, you can use the CSS files in [this folder](https://github.com/ImShyMike/haxmas-day-11/tree/main/haxmas-day-11/src/styles).
 
 **Before submitting, make sure to customize the home page and the blog's styles to make it your own!**
 
@@ -468,7 +313,7 @@ Need help with Astro? Check out the [Astro documentation](https://docs.astro.bui
 
 Want to implement more features into your blog? Check out [Astro's official blog guide](https://docs.astro.build/en/tutorial/0-introduction)!
 
-## 10) Deploying to Cloudflare Pages
+## 11) Deploying to Cloudflare Pages
 
 To deploy your very amazing blog to Cloudflare Pages:
 
@@ -495,6 +340,6 @@ You're done! After a few seconds, your blog should be live on Cloudflare Pages!
 
 ![cloudflare pages deployed](./assets/success.png)
 
-## 11) Submitting
+## 12) Submitting
 
-### [https://forms.hackclub.com/haxmas-day-12](https://forms.hackclub.com/haxmas-day-12)
+### [https://forms.hackclub.com/haxmas-day-11](https://forms.hackclub.com/haxmas-day-11)

@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "haxmas-day-12",
+      "name": "haxmas-day-11",
       "dependencies": {
         "astro": "^5.16.6",
       },
