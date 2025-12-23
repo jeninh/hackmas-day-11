@@ -70,7 +70,7 @@ The final structure of the project should look like this:
 ├── content
 │   └── posts
 ├── layouts
-│   └── BlogLayout.astro
+│   └── BlogPost.astro
 ├── pages
 │   ├── posts
 │   │   ├── [...slug].astro
@@ -175,11 +175,11 @@ import '../styles/global.css';
 
 To display a blog post, we will first need to create a layout and a page to render the blog posts :p
 
-That's exactly what `BlogLayout.astro` and `posts/[...slug].astro` are for!
+That's exactly what `BlogPost.astro` and `posts/[...slug].astro` are for!
 
 The layout file will be used to structure the blog post page, while the slug file will be used to match the url to the correct blog post.
 
-- `src/layouts/BlogLayout.astro`:
+- `src/layouts/BlogPost.astro`:
 
 ```astro
 ---
