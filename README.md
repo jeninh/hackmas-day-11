@@ -376,7 +376,7 @@ To deploy your very amazing blog to Cloudflare Pages:
 - Edit the following settings:
   - **Project name**: Your project name
   - **Framework preset**: `Astro`
-  - **Build command**: `bun build`
+  - **Build command**: `bun run build`
 
 ![cloudflare pages deployment](https://raw.githubusercontent.com/ImShyMike/haxmas-day-11/refs/heads/main/assets/create-deployment.png)
 
